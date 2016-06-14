@@ -2,8 +2,8 @@
 (function(){
 
 class ProductsComponent {
-  constructor() {
-    this.message = 'Hello';
+  constructor($scope, Product) {
+    $scope.products = Product;
   }
 }
 
