@@ -4,10 +4,11 @@
 
   class MainController {
 
-    constructor($http, $scope, socket) {
+    constructor($http, $scope, socket, Product) {
       this.$http = $http;
       this.socket = socket;
       this.awesomeThings = [];
+      $scope.products = Product.query().slice(3);
 
       $scope.$on('$destroy', function() {
         socket.unsyncUpdates('thing');
