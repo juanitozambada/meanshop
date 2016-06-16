@@ -1,4 +1,6 @@
-var Product = require('./product.model.js');
+'use strict';
+
+import Product from './product.model';
 
 describe('Product', function() {
   beforeEach(function(done){
