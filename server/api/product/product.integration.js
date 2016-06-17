@@ -4,6 +4,14 @@ var app = require('../..');
 import request from 'supertest';
 
 var newProduct;
+var validProductAttributes = {
+  title: 'Product1',
+  price: 100.00
+};
+var updateProductAttributes = {
+  title: 'Product 1 Updated',
+  price: 200.00
+};
 
 describe('Product API:', function() {
 
@@ -34,10 +42,7 @@ describe('Product API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/products')
-        .send({
-          name: 'New Product',
-          info: 'This is the brand new product!!!'
-        })
+        .send(validProductAttributes)
         .expect(201)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -50,8 +55,9 @@ describe('Product API:', function() {
     });
 
     it('should respond with the newly created product', function() {
-      expect(newProduct.name).to.equal('New Product');
-      expect(newProduct.info).to.equal('This is the brand new product!!!');
+      for(var attribute in validProductAttributes) {
+        newProduct[attribute].should.equal(validProductAttributes[attribute]);
+      }
     });
 
   });
@@ -78,8 +84,9 @@ describe('Product API:', function() {
     });
 
     it('should respond with the requested product', function() {
-      expect(product.name).to.equal('New Product');
-      expect(product.info).to.equal('This is the brand new product!!!');
+      for(var attribute in validProductAttributes) {
+        product[attribute].should.equal(validProductAttributes[attribute]);
+      }
     });
 
   });
@@ -90,10 +97,7 @@ describe('Product API:', function() {
     beforeEach(function(done) {
       request(app)
         .put('/api/products/' + newProduct._id)
-        .send({
-          name: 'Updated Product',
-          info: 'This is the updated product!!!'
-        })
+        .send(updateProductAttributes)
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
@@ -110,8 +114,9 @@ describe('Product API:', function() {
     });
 
     it('should respond with the updated product', function() {
-      expect(updatedProduct.name).to.equal('Updated Product');
-      expect(updatedProduct.info).to.equal('This is the updated product!!!');
+      for(var attribute in updateProductAttributes) {
+        updatedProduct[attribute].should.equal(updateProductAttributes[attribute]);
+      }
     });
 
   });
