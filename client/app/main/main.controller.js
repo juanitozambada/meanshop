@@ -8,7 +8,7 @@
       this.$http = $http;
       this.socket = socket;
       this.awesomeThings = [];
-      $scope.products = Product.query().slice(3);
+      $scope.products = Product.query();
 
       $scope.$on('$destroy', function() {
         socket.unsyncUpdates('thing');
